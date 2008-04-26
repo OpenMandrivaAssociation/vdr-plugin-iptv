@@ -1,7 +1,7 @@
 
 %define plugin	iptv
 %define name	vdr-plugin-%plugin
-%define version	0.0.7
+%define version	0.2.0
 %define rel	1
 
 Summary:	VDR plugin: Experience the IPTV
@@ -12,9 +12,8 @@ Group:		Video
 License:	GPL
 URL:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/
 Source:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/vdr-%plugin-%version.tgz
-Patch0:		iptv-vdr-1.4-support.patch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	vdr-devel >= 1.4.1-6
+BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 
 %description
@@ -37,7 +36,7 @@ MP3 radio streams, mms video streams and so on.
 
 %prep
 %setup -q -n %plugin-%version
-%patch0 -p1
+%vdr_plugin_prep
 
 %vdr_plugin_params_begin %plugin
 # Number of devices to be created
