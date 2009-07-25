@@ -1,8 +1,8 @@
 
 %define plugin	iptv
 %define name	vdr-plugin-%plugin
-%define version	0.2.0
-%define rel	3
+%define version	0.3.0
+%define rel	1
 
 Summary:	VDR plugin: Experience the IPTV
 Name:		%name
@@ -15,6 +15,12 @@ Source:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/vdr-%plugin-%version.
 BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
+# for example helper scripts
+# disabled for now as not needed by everyone and they are quite big
+#Suggests:	ffmpeg
+#Suggests:	vlc
+#Suggests:	mplayer
+#Suggests:	alsa-utils
 
 %description
 This plugin integrates multicast IPTV transport streams seamlessly into
@@ -33,6 +39,8 @@ IPTV plugin also features a support for external streaming applications.
 With proper helper applications and configuration IPTV plugin is able to
 display not only MPEG1/2 transport streams but also other formats like
 MP3 radio streams, mms video streams and so on.
+
+The example scripts require alsa-utils, ffmpeg, mplayer, vlc.
 
 %prep
 %setup -q -n %plugin-%version
@@ -69,6 +77,11 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc README HISTORY
 %dir %{_vdr_plugin_cfgdir}/%{plugin}
+%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/image.sh
+%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/internetradio.sh
+%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/iptvstream-notrap.sh
 %config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/iptvstream.sh
+%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/linein.sh
 %config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/vlc2iptv
+%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/webcam.sh
 
