@@ -1,15 +1,15 @@
 
 %define plugin	iptv
 %define name	vdr-plugin-%plugin
-%define version	0.3.0
-%define rel	2
+%define version	0.3.2
+%define rel	1
 
 Summary:	VDR plugin: Experience the IPTV
 Name:		%name
 Version:	%version
 Release:	%mkrel %rel
 Group:		Video
-License:	GPL
+License:	GPLv2
 URL:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/
 Source:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/vdr-%plugin-%version.tgz
 BuildRoot:	%{_tmppath}/%{name}-buildroot
