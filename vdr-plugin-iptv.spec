@@ -2,7 +2,9 @@
 %define plugin	iptv
 %define name	vdr-plugin-%plugin
 %define version	0.3.2
-%define rel	1
+%define rel	2
+
+%define debug_package %{nil}
 
 Summary:	VDR plugin: Experience the IPTV
 Name:		%name
@@ -12,7 +14,6 @@ Group:		Video
 License:	GPLv2
 URL:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/
 Source:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/vdr-%plugin-%version.tgz
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 # for example helper scripts
@@ -52,20 +53,16 @@ var=DEVICES
 param=--devices=DEVICES
 %vdr_plugin_params_end
 
-perl -pi -e 's,CHANNELS_CONF=.*$,CHANNELS_CONF=%{_vdr_cfgdir}/channels.conf,' iptv/vlc2iptv
-perl -pi -e 's,CHANNEL_SETTINGS_DIR=.*/iptv,CHANNEL_SETTINGS_DIR=%{_vdr_plugin_cfgdir}/%{plugin},' iptv/vlc2iptv
+perl -pi -e 's,CHANNELS_CONF=.*$,CHANNELS_CONF=%{vdr_cfgdir}/channels.conf,' iptv/vlc2iptv
+perl -pi -e 's,CHANNEL_SETTINGS_DIR=.*/iptv,CHANNEL_SETTINGS_DIR=%{vdr_plugin_cfgdir}/%{plugin},' iptv/vlc2iptv
 
 %build
 %vdr_plugin_build
 
 %install
-rm -rf %{buildroot}
 %vdr_plugin_install
-install -d -m755 %{buildroot}%{_vdr_plugin_cfgdir}/%{plugin}
-install -m755 iptv/* %{buildroot}%{_vdr_plugin_cfgdir}/%{plugin}
-
-%clean
-rm -rf %{buildroot}
+install -d -m755 %{buildroot}%{vdr_plugin_cfgdir}/%{plugin}
+install -m755 iptv/* %{buildroot}%{vdr_plugin_cfgdir}/%{plugin}
 
 %post
 %vdr_plugin_post %plugin
@@ -76,12 +73,45 @@ rm -rf %{buildroot}
 %files -f %plugin.vdr
 %defattr(-,root,root)
 %doc README HISTORY
-%dir %{_vdr_plugin_cfgdir}/%{plugin}
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/image.sh
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/internetradio.sh
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/iptvstream-notrap.sh
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/iptvstream.sh
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/linein.sh
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/vlc2iptv
-%config(noreplace) %{_vdr_plugin_cfgdir}/%{plugin}/webcam.sh
+%dir %{vdr_plugin_cfgdir}/%{plugin}
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/image.sh
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/internetradio.sh
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/iptvstream-notrap.sh
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/iptvstream.sh
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/linein.sh
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/vlc2iptv
+%config(noreplace) %{vdr_plugin_cfgdir}/%{plugin}/webcam.sh
+
+
+
+%changelog
+* Sat Sep 04 2010 Anssi Hannula <anssi@mandriva.org> 0.3.2-1mdv2011.0
++ Revision: 575998
+- new version
+- update license tag for current policy
+
+* Tue Jul 28 2009 Anssi Hannula <anssi@mandriva.org> 0.3.0-2mdv2011.0
++ Revision: 401088
+- rebuild for new VDR
+
+* Sat Jul 25 2009 Anssi Hannula <anssi@mandriva.org> 0.3.0-1mdv2010.0
++ Revision: 399815
+- new version
+- specify requirements of example scripts in description
+
+* Fri Mar 20 2009 Anssi Hannula <anssi@mandriva.org> 0.2.0-3mdv2009.1
++ Revision: 359327
+- rebuild for new vdr
+
+* Mon Apr 28 2008 Anssi Hannula <anssi@mandriva.org> 0.2.0-2mdv2009.0
++ Revision: 197939
+- rebuild for new vdr
+
+* Sat Apr 26 2008 Anssi Hannula <anssi@mandriva.org> 0.2.0-1mdv2009.0
++ Revision: 197681
+- new version
+- add vdr_plugin_prep
+- bump buildrequires on vdr-devel
+- drop unneeded 1.4-support patch (P0)
+- initial Mandriva release
 
