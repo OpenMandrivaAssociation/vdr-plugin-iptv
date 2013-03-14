@@ -2,7 +2,7 @@
 %define plugin	iptv
 %define name	vdr-plugin-%plugin
 %define version	0.3.2
-%define rel	2
+%define rel	3
 
 %define debug_package %{nil}
 
@@ -63,12 +63,6 @@ perl -pi -e 's,CHANNEL_SETTINGS_DIR=.*/iptv,CHANNEL_SETTINGS_DIR=%{vdr_plugin_cf
 %vdr_plugin_install
 install -d -m755 %{buildroot}%{vdr_plugin_cfgdir}/%{plugin}
 install -m755 iptv/* %{buildroot}%{vdr_plugin_cfgdir}/%{plugin}
-
-%post
-%vdr_plugin_post %plugin
-
-%postun
-%vdr_plugin_postun %plugin
 
 %files -f %plugin.vdr
 %defattr(-,root,root)
