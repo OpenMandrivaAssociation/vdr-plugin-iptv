@@ -12,7 +12,7 @@ Version:	%version
 Release:	%mkrel %rel
 Group:		Video
 License:	GPLv2
-URL:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/
+URL:		https://www.saunalahti.fi/~rahrenbe/vdr/iptv/
 Source:		http://www.saunalahti.fi/~rahrenbe/vdr/iptv/files/vdr-%plugin-%version.tgz
 BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
