@@ -9,7 +9,7 @@
 Summary:	VDR plugin: Experience the IPTV
 Name:		%name
 Version:	%version
-Release:	%mkrel %rel
+Release:	%rel.1
 Group:		Video
 License:	GPLv2
 URL:		https://www.saunalahti.fi/~rahrenbe/vdr/iptv/
